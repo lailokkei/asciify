@@ -1,21 +1,17 @@
 package asciify
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 	"sort"
 )
 
+// correspond to char dimensions
 type tile struct {
 	x      int
 	y      int
 	width  int
 	height int
-}
-
-func scaleToSteps(lineHeight int, imageHeight int) int {
-	return imageHeight / lineHeight
 }
 
 func sampleMean(img image.Image, tile tile) color.Gray {
@@ -53,20 +49,19 @@ func sampleTopLeft(img image.Image, tile tile) color.Gray {
 	return colorToGray(img.At(tile.x, tile.y))
 }
 
-func printImage(img image.Image, characterSet []rune, scaleSteps int) {
-	stringImage := ""
+func ImageToText(img image.Image, characterSet []rune, lineHeight int) string {
+	textImage := ""
+	tileHeight := img.Bounds().Max.Y / lineHeight
+	tileWidth := tileHeight / 2
 
-	tileHeight := scaleSteps
-	tileWidth := scaleSteps / 2
-
-	for y := img.Bounds().Min.Y; y+tileHeight < img.Bounds().Max.Y; y += tileHeight {
-		for x := img.Bounds().Min.X; x+tileWidth < img.Bounds().Max.X; x += tileWidth {
+	for y := img.Bounds().Min.Y; y+tileHeight <= img.Bounds().Max.Y; y += tileHeight {
+		for x := img.Bounds().Min.X; x+tileWidth <= img.Bounds().Max.X; x += tileWidth {
 			// c := colorToGray(img.At(x, y))
 			c := sampleMid(img, tile{x, y, tileWidth, tileHeight})
-			stringImage += grayToChar(c, characterSet)
+			textImage += grayToChar(c, characterSet)
 		}
-		stringImage += "\n"
+		textImage += "\n"
 	}
 
-	fmt.Print(stringImage)
+	return textImage
 }

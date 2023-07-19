@@ -12,6 +12,9 @@ import (
 	_ "image/png"
 )
 
+type Options struct {
+}
+
 func reverseSet(set []rune) []rune {
 	reversed := []rune{}
 	for i := len(set) - 1; i >= 0; i-- {
@@ -33,10 +36,15 @@ func Start() {
 	_ = cFlag
 
 	sets := map[string][]rune{
-		"standard": []rune(" .'" + "`" + "^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ1OZmwqpdbkhao*#MW&8%B@$"),
-		"detailed": []rune(" `.-':_,^=;><+!rc*/z?sLTv)J7(|Fi{C}fI31tlu[neoZ5Yxjya]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@"),
-		"simple":   []rune(" .:-=+*#%@"),
-		"squares":  []rune(" ░▒▓█"),
+		// "standard": []rune(" .'" + "`" + "^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ1OZmwqpdbkhao*#MW&8%B@$"),
+		// "detailed": []rune(" `.-':_,^=;><+!rc*/z?sLTv)J7(|Fi{C}fI31tlu[neoZ5Yxjya]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@"),
+		// "simple":   []rune(" .:-=+*#%@"),
+		// "squares":  []rune(" ░▒▓█"),
+		// "binary":   []rune(" #"),
+
+		"blocks-binary":    []rune("░█"),
+		"helvetica-blocks": []rune("┌░▒▓█"),
+		"blocks-vertical":  []rune("▏▎▍▌▋▊▉█"),
 	}
 
 	if *hFlag {
@@ -61,5 +69,5 @@ func Start() {
 		log.Fatal(err)
 	}
 
-	printImage(img, characterSet, scaleToSteps(*sFlag, img.Bounds().Max.Y))
+	printImage(img, characterSet, *sFlag)
 }
