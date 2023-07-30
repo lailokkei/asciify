@@ -1,0 +1,4 @@
+# vim: filetype=sh
+#!/usr/bin/bash
+
+go build -o ../../bin/asciify -C ./cmd/cli
