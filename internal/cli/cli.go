@@ -1,27 +1,13 @@
-package asciify
+package cli
 
 import (
 	"flag"
 	"fmt"
-	"image"
 	"log"
 	"os"
 
-	_ "image/gif"
-	_ "image/jpeg"
-	_ "image/png"
+	asciify "github.com/toodemhard/asciify/internal/asciify-lib"
 )
-
-type Options struct {
-}
-
-func reverseSet(set []rune) []rune {
-	reversed := []rune{}
-	for i := len(set) - 1; i >= 0; i-- {
-		reversed = append(reversed, set[i])
-	}
-	return reversed
-}
 
 func Start() {
 	var hFlag = flag.Bool("h", false, "")
@@ -30,44 +16,18 @@ func Start() {
 	var sFlag = flag.Int("s", 20, "")
 	var cFlag = flag.String("c", "standard", "")
 	flag.Parse()
-	_ = *iFlag
-	_ = sFlag
-	_ = fFlag
-	_ = cFlag
-
-	sets := map[string][]rune{
-		// "standard": []rune(" .'" + "`" + "^\",:;Il!i><~+_-?][}{1)(|\\/tfjrxnuvczXYUJCLQ1OZmwqpdbkhao*#MW&8%B@$"),
-		// "detailed": []rune(" `.-':_,^=;><+!rc*/z?sLTv)J7(|Fi{C}fI31tlu[neoZ5Yxjya]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@"),
-		// "simple":   []rune(" .:-=+*#%@"),
-		// "squares":  []rune(" ░▒▓█"),
-		// "binary":   []rune(" #"),
-
-		"blocks-binary":    []rune("░█"),
-		"helvetica-blocks": []rune("┌░▒▓█"),
-		"blocks-vertical":  []rune("▏▎▍▌▋▊▉█"),
-	}
 
 	if *hFlag {
 		fmt.Println("idk...")
 		os.Exit(0)
 	}
 
-	characterSet := sets[*cFlag]
-
-	if *iFlag {
-		characterSet = reverseSet(characterSet)
-	}
-
-	reader, err := os.Open(*fFlag)
-
+	fmt.Println(*fFlag)
+	img, err := asciify.DecodeImageFile(*fFlag)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	img, _, err := image.Decode(reader)
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	printImage(img, characterSet, *sFlag)
+	options := asciify.Options{CharSetName: *cFlag, Invert: *iFlag, ScaleHeight: *sFlag}
+	fmt.Print(asciify.ImageToText(img, options))
 }
