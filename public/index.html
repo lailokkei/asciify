@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>Asciify</title>
+</head>
+<body>
+
+    <div class="page">
+        <h1>ASCIIFY</h1> 
+        
+        <div class="flex-container">
+
+            <div>
+                <input type="file", id="image"/>
+                <div class="output" id="output" contenteditable="true"></div>
+                <button id="generate" onclick="submitImage()">Generate</button>
+
+            </div>
+            <div class="options">
+                <input type="checkbox">
+                <label>invert</label>
+            </div>
+
+        </div>
+    </div>
+
+
+    <script src="script.js"></script>
+</body>
+</html>
