@@ -22,12 +22,11 @@ func Start() {
 		os.Exit(0)
 	}
 
-	fmt.Println(*fFlag)
 	img, err := asciify.DecodeImageFile(*fFlag)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	options := asciify.Options{CharSetName: *cFlag, Invert: *iFlag, ScaleHeight: *sFlag}
+	options := asciify.Options{CharSetName: *cFlag, Invert: *iFlag, ScaleWidth: *sFlag}
 	fmt.Print(asciify.ImageToText(img, options))
 }

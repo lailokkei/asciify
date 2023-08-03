@@ -1,6 +1,7 @@
 package asciify
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"sort"
@@ -9,7 +10,7 @@ import (
 type Options struct {
 	CharSetName string
 	Invert      bool
-	ScaleHeight int
+	ScaleWidth  int
 }
 
 type tile struct {
@@ -57,8 +58,10 @@ func sampleTopLeft(img image.Image, tile tile) color.Gray {
 func ImageToText(img image.Image, options Options) string {
 	charSet := getCharSet(options.CharSetName, options.Invert)
 	textImage := ""
-	tileHeight := img.Bounds().Max.Y / options.ScaleHeight
-	tileWidth := tileHeight / 2
+	tileWidth := img.Bounds().Max.X / options.ScaleWidth
+	tileHeight := tileWidth * 2
+
+	fmt.Printf("%d %d\n", tileWidth, tileHeight)
 
 	for y := img.Bounds().Min.Y; y+tileHeight <= img.Bounds().Max.Y; y += tileHeight {
 		for x := img.Bounds().Min.X; x+tileWidth <= img.Bounds().Max.X; x += tileWidth {
