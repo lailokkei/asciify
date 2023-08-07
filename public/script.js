@@ -13,15 +13,14 @@ let options = {
     ScaleWidth: 20,
 };
 
-// function sendImage() {
-//     ws.send
-// }
-//
-function sendOptions() {
-    ws.send(JSON.stringify(getOptions()));
+function updateImage() {
+    let image = document.getElementById("image").files[0];
+    ws.send(image);
+
+    sendOptions()
 }
 
-function getOptions() {
+function sendOptions() {
     let form = document.getElementById("options");
 
     let options = {
@@ -31,26 +30,5 @@ function getOptions() {
     };
 
     console.log(options);
-    return options
+    ws.send(JSON.stringify(options));
 }
-
-// url = window.location.href + "/api";
-//
-// let value = document.querySelector("#scale-output");
-// let range = document.querySelector("#scale-range");
-//
-// range.addEventListener("input", console.log("input"));
-//
-// function updateValue() {
-//     console.log("jdasflksajf");
-//     value.value = range.value;
-// }
-//
-// async function submitImage() {
-//     let image = document.getElementById("image").files[0];
-//     let r = await fetch("/api/image", { method: "POST", body: "sakdljf", image });
-//
-//     r.text().then(function(result) {
-//         document.getElementById("output").innerHTML = result;
-//     });
-// }

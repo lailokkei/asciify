@@ -9,12 +9,6 @@
 </head>
 
 <body>
-    <script>
-        function log() {
-            console.log("ajskldfjlsad");
-        }
-    </script>
-
     <button onclick="log()"></button>
     <div class="page">
         <div class="header">
@@ -27,7 +21,7 @@
 
         <div class="flex-container">
             <div>
-                <input type="file" , id="image" onchange="console.log('image')"/>
+                <input type="file" , id="image" onchange="updateImage()"/>
                 <div class="output" id="output" contenteditable="true" spellcheck="false"></div>
             </div>
             <form id="options" onsubmit="return false" onchange="sendOptions()">
@@ -50,7 +44,6 @@
         </div>
     </div>
 
-    <script></script>
     <script src="script.js"></script>
 </body>
 
