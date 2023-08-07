@@ -1,17 +1,16 @@
 let ws = new WebSocket("ws://" + window.location.host + "/connect");
+
 ws.onmessage = function(e) {
-    document.getElementById("output").innerHTML = e.data;
+    document.getElementById("output").innerHTML = escapeHTML(e.data);
 };
 
 ws.onopen = function() {
     sendOptions();
 };
 
-let options = {
-    CharSetName: "simple",
-    Invert: false,
-    ScaleWidth: 20,
-};
+function escapeHTML(unsafe) {
+    return unsafe.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
+}
 
 function updateImage() {
     let image = document.getElementById("image").files[0];
