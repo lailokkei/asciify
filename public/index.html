@@ -1,33 +1,57 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
     <title>Asciify</title>
 </head>
+
 <body>
+    <script>
+        function log() {
+            console.log("ajskldfjlsad");
+        }
+    </script>
 
+    <button onclick="log()"></button>
     <div class="page">
-        <h1>ASCIIFY</h1> 
-        
+        <div class="header">
+            <a href="/" class="title">ASCIIFY</a>
+            <a href="" class="link">CLI</a>
+            <a href="" class="link">Help</a>
+            <a href="https://github.com/toodemhard/asciify" target="_blank" rel="noopener noreferrer"
+                class="link">Source</a>
+        </div>
+
         <div class="flex-container">
-
             <div>
-                <input type="file", id="image"/>
-                <div class="output" id="output" contenteditable="true"></div>
-                <button id="generate" onclick="submitImage()">Generate</button>
-
+                <input type="file" , id="image" onchange="console.log('image')"/>
+                <div class="output" id="output" contenteditable="true" spellcheck="false"></div>
             </div>
-            <div class="options">
-                <input type="checkbox">
+            <form id="options" onsubmit="return false" onchange="sendOptions()">
                 <label>invert</label>
-            </div>
+                <input name="invert" type="checkbox" />
+                <br />
 
+                <label>character set</label>
+                <select name="charset">
+                    <option value="simple">simple</option>
+                    <option value="blocks">blocks</option>
+                </select>
+                <br />
+
+                <label>scale</label>
+                <input name="scale" value="20" id="scale-output" type="number" />
+                <input id="scale-range" type="range" min="0" max="100" step="2" />
+                <br />
+            </form>
         </div>
     </div>
 
-
+    <script></script>
     <script src="script.js"></script>
 </body>
+
 </html>

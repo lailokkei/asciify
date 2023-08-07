@@ -1,28 +1,56 @@
-url = window.location.href+"/api"
+let ws = new WebSocket("ws://" + window.location.host + "/connect");
+ws.onmessage = function(e) {
+    document.getElementById("output").innerHTML = e.data;
+};
 
-generateText()
+ws.onopen = function() {
+    sendOptions();
+};
 
-function generateText(){
-    fetch("/api").then(function(r) {
-        return r.text();
-    }).then(function(data) {
-        updateOutput(data)
-        console.log("data: " + data);
-    }).catch(function(err) {
-        console.log('Fetch Error :-S', err);
-    });
+let options = {
+    CharSetName: "simple",
+    Invert: false,
+    ScaleWidth: 20,
+};
+
+// function sendImage() {
+//     ws.send
+// }
+//
+function sendOptions() {
+    ws.send(JSON.stringify(getOptions()));
 }
 
-function updateOutput(text){
-    document.getElementById("output").innerHTML = text
+function getOptions() {
+    let form = document.getElementById("options");
 
+    let options = {
+        CharSetName: form.charset.value,
+        Invert: form.invert.checked,
+        ScaleWidth: Number(form.scale.value),
+    };
+
+    console.log(options);
+    return options
 }
 
-async function submitImage(){
-    let image = document.getElementById("image").files[0];
-    let r = await fetch("/api/image", {method : "POST", body : image})
-
-    r.text().then(function(result){
-        document.getElementById("output").innerHTML = result;
-    });
-}
+// url = window.location.href + "/api";
+//
+// let value = document.querySelector("#scale-output");
+// let range = document.querySelector("#scale-range");
+//
+// range.addEventListener("input", console.log("input"));
+//
+// function updateValue() {
+//     console.log("jdasflksajf");
+//     value.value = range.value;
+// }
+//
+// async function submitImage() {
+//     let image = document.getElementById("image").files[0];
+//     let r = await fetch("/api/image", { method: "POST", body: "sakdljf", image });
+//
+//     r.text().then(function(result) {
+//         document.getElementById("output").innerHTML = result;
+//     });
+// }
