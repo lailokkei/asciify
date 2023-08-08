@@ -19,8 +19,9 @@ function updateImage() {
     sendOptions()
 }
 
+let form = document.getElementById("options");
+
 function sendOptions() {
-    let form = document.getElementById("options");
 
     let options = {
         CharSetName: form.charset.value,
@@ -30,4 +31,18 @@ function sendOptions() {
 
     console.log(options);
     ws.send(JSON.stringify(options));
+}
+
+let scaleRange = document.getElementById("scale-range")
+let scaleInput = form.scale
+
+scaleRange.addEventListener("input", updateScaleInput);
+scaleInput.addEventListener("change", updateScaleRange);
+
+function updateScaleRange() {
+    scaleRange.value = scaleInput.value;
+}
+
+function updateScaleInput() {
+    scaleInput.value = scaleRange.value;
 }
