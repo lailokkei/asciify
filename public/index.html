@@ -9,7 +9,6 @@
 </head>
 
 <body>
-    <button onclick="log()"></button>
     <div class="page">
         <div class="header">
             <a href="/" class="title">ASCIIFY</a>
@@ -25,20 +24,24 @@
                 <div class="output" id="output" contenteditable="true" spellcheck="false"></div>
             </div>
             <form id="options" onsubmit="return false" onchange="sendOptions()">
-                <label>invert</label>
+                <label>Invert</label>
                 <input name="invert" type="checkbox" />
                 <br />
 
-                <label>character set</label>
+                <label>Characters</label>
                 <select name="charset">
-                    <option value="simple">simple</option>
-                    <option value="blocks">blocks</option>
+                    <option value="simple">Simple</option>
+                    <option value="standard">Standard</option>
+                    <option value="detailed">Detailed</option>
+                    <option value="blocks">Blocks</option>
+
+
                 </select>
                 <br />
 
-                <label>scale</label>
-                <input name="scale" value="20" id="scale-output" type="number" />
-                <input id="scale-range" type="range" min="0" max="100" step="2" />
+                <label>Scale</label>
+                <input name="scale" value="30" id="scale-output" type="number"/>
+                <input id="scale-range" type="range" min="0" max="100" step="2"/>
                 <br />
             </form>
         </div>
