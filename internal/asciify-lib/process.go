@@ -1,7 +1,6 @@
 package asciify
 
 import (
-	"fmt"
 	"image"
 	"image/color"
 	"sort"
@@ -60,8 +59,6 @@ func ImageToText(img image.Image, options Options) string {
 	textImage := ""
 	tileWidth := img.Bounds().Max.X / options.ScaleWidth
 	tileHeight := tileWidth * 2
-
-	fmt.Printf("%d %d\n", tileWidth, tileHeight)
 
 	for y := img.Bounds().Min.Y; y+tileHeight <= img.Bounds().Max.Y; y += tileHeight {
 		for x := img.Bounds().Min.X; x+tileWidth <= img.Bounds().Max.X; x += tileWidth {
