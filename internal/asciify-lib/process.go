@@ -19,6 +19,10 @@ type tile struct {
 	height int
 }
 
+func NewOptions() Options {
+	return Options{"standard", false, 20}
+}
+
 func sampleMean(img image.Image, tile tile) color.Gray {
 	total := 0
 	for y := tile.y; y < tile.y+tile.height; y++ {
