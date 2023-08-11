@@ -50,7 +50,6 @@ function updateScaleInput() {
 function copyText() {
     let text = document.getElementById("output");
     navigator.clipboard.writeText(text.innerText);
-    console.log(text.innerText);
 }
 
 function updateFont() {
