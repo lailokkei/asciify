@@ -52,3 +52,10 @@ function copyText() {
     navigator.clipboard.writeText(text.innerText);
     console.log(text.innerText);
 }
+
+function updateFont() {
+    let selector = document.getElementsByName("font");
+    let text = document.getElementById("output");
+
+    text.style.fontFamily = selector[0].value;
+}

@@ -22,11 +22,13 @@
 
     <section class="display">
         <h1>Display</h1>
-        <label>Font</label>
-        <select name="font">
-            <option value="monospace">monospace</option>
-            <option value="proportional">proportional</option>
-        </select>
+        <div>
+            <label>Font</label>
+            <select name="font" id="font-selector" onchange="updateFont()">
+                <option value="monospace">monospace</option>
+                <option value="sans-serif">proportional</option>
+            </select>
+        </div>
         <button onclick="copyText()">Copy</button>
         <input type="file" accept="image/png, image/jpeg, image/gif" id="image" onchange="updateImage()"/>
         <div class="text-art" id="output" contenteditable="true" spellcheck="false"></div>
