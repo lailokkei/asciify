@@ -14,34 +14,37 @@
             <a href="/" class="title">ASCIIFY</a>
         </div>
         <div class="links">
-            <a href="" class="link first-margin">CLI</a>
+            <a href="" class="link">CLI</a>
             <a href="" class="link">Help</a>
-            <a href="https://github.com/toodemhard/asciify" target="_blank" rel="noopener noreferrer" class="link last-margin">Source</a>
+            <a href="https://github.com/toodemhard/asciify" class="link" target="_blank" rel="noopener noreferrer">Source</a>
         </div>
     </header>
 
-    <section class="display">
+    <div class="display center">
         <h1>Display</h1>
-        <div>
+        <div class="line-option">
             <label>Font</label>
             <select name="font" id="font-selector" onchange="updateFont()">
                 <option value="monospace">monospace</option>
                 <option value="sans-serif">proportional</option>
             </select>
         </div>
-        <button onclick="copyText()">Copy</button>
-        <input type="file" accept="image/png, image/jpeg, image/gif" id="image" onchange="updateImage()"/>
+        <div class="line-option">
+            <button onclick="copyText()">Copy</button>
+            <input type="file" accept="image/png, image/jpeg, image/gif" id="image" onchange="updateImage()"/>
+        </div>
         <div class="text-art" id="output" contenteditable="true" spellcheck="false"></div>
-    </section>
 
-    <div class="options">
+    </div>
+
+    <div class="options center">
         <form id="options" onsubmit="return false" onchange="sendOptions()">
             <h1>Options</h1>
-            <div>
+            <div class="line-option">
                 <label>Invert</label>
                 <input name="invert" type="checkbox" />
             </div>
-            <div>
+            <div class="line-option">
                 <label>Characters</label>
                 <select name="charset">
                     <option value="simple">Simple</option>
@@ -50,9 +53,11 @@
                     <option value="blocks">Blocks</option>
                 </select>
             </div>
-            <div>
+            <div class="line-option">
                 <label>Scale</label>
                 <input name="scale" value="30" id="scale-output" type="number"/>
+            </div>
+            <div class="line-option">
                 <input id="scale-range" type="range" min="0" max="60" step="4"/>
             </div>
         </form>

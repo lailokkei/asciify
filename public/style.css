@@ -1,5 +1,6 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
+    box-sizing: border-box;
     /* font-size: 1.125rem; */
 }
 
@@ -25,6 +26,7 @@ input{
 .title {
     font-size: 3rem;
     font-weight: bold;
+    padding: 0.5rem;
 }
 
 a{
@@ -38,6 +40,11 @@ a:hover {
 
 h1 {
     font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+section {
+    padding: 0 1rem;
 }
 
 .link { 
@@ -48,12 +55,19 @@ h1 {
     margin-right: 20px;
 }
 
-.first-margin {
-    margin-left: 0;
-}
-
 .last-margin {
     margin-right: 0;
+}
+
+select,
+button,
+input,
+input::file-selector-button{
+    font-size: 1rem;
+}
+
+input[type=number] {
+    border: solid 1px white;
 }
 
 button,
@@ -61,15 +75,13 @@ input::file-selector-button{
     background-color: var(--button-bg-color);
     border: none;
     cursor: pointer;
-    padding: 0.25rem;
-}
-
-#image {
-    margin-bottom: 10px;
+    padding: 0.375rem;
+    border-radius: 0.25rem;
+    font-weight: bold;
 }
 
 .text-art{
-    font-size: 1em;
+    font-size: 1rem;
     font-family: monospace;
     white-space: pre-wrap;
     border: solid 2px white;
@@ -78,5 +90,10 @@ input::file-selector-button{
 .center {
     margin: 0 auto;
     padding: 1em;
+    padding-bottom: 0;
     max-width: 75rem;
-};
+}
+
+.line-option {
+   margin-bottom: 0.5rem; 
+}
