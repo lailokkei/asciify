@@ -1,57 +1,47 @@
 * {
-    font-size: 1rem;
     font-family: Arial, Helvetica, sans-serif;
-    /* color: white; */
+    /* font-size: 1.125rem; */
 }
 
-html {
+:root {
+    --bg-color: white;
+    --button-bg-color: #74d5ff;
+    --highlight-color: var(--button-bg-color);
+    --border-color: #575757;
+}
+
+body,
+h1 {
     margin: 0;
-    padding: 0;
 }
 
-body {
-    margin: 0;
-}
-
-/* body, input, select{ */
-/*     background-color: #252525; */
-/* } */
-
-a{
-    text-decoration: none;
-    color: black;
-}
-
-a:hover {
-
-    border-bottom: 4px solid;
+html,
+select,
+input{
+    background-color: black;
+    color: white;
 }
 
 .title {
     font-size: 3rem;
     font-weight: bold;
-    flex: 1;
+}
+
+a{
+    text-decoration: none;
+    color: white;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 h1 {
     font-size: 2rem;
 }
 
-.site-header{
-    padding: 20px;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-}
-
-.links{
-    display: flex;
-    justify-content: flex-end;
-    text-align: center;
-    flex: 0;
-}
-
 .link { 
+    color: var(--highlight-color);
     font-size: 24pt;
     font-weight: bold;
     margin-left: 20px;
@@ -67,7 +57,9 @@ h1 {
 }
 
 input::file-selector-button{
-    background-color: gold;
+    background-color: var(--button-bg-color);
+    border: none;
+    cursor: pointer;
     padding: 0.25rem;
 }
 
@@ -82,26 +74,14 @@ button{
 }
 
 .text-art{
-    flex:1;
-    /* width:100%; */
-    /* height: 500px; */
-    background-color: black;
+    font-size: 1em;
     font-family: monospace;
-    white-space: pre;
-    color: white;
-    padding: 20px;
+    white-space: pre-wrap;
+    border: solid 2px white;
 }
 
-#options{
-    flex:2;
-}
-
-.flex-container{
-    display: flex;
-    flex-wrap: wrap;
-}
-
-/* .flex-container div,form{ */
-/*     border: red solid 2px */
-/* } */
-/**/
+.center {
+    margin: 0 auto;
+    padding: 1em;
+    max-width: 75rem;
+};

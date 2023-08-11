@@ -20,15 +20,18 @@
         </div>
     </header>
 
-    <h1>Realtime text art generation</h1>
-    <p>Upload an image and dynamically generate different styles.</p>
+    <section class="display">
+        <h1>Display</h1>
+        <label>Font</label>
+        <select name="font">
+            <option value="monospace">monospace</option>
+            <option value="proportional">proportional</option>
+        </select>
+        <input type="file" accept="image/png, image/jpeg, image/gif" id="image" onchange="updateImage()"/>
+        <div class="text-art" id="output" contenteditable="true" spellcheck="false"></div>
+    </section>
 
-    <div class="flex-container">
-        <div class="flex-item">
-            <h1>Image</h1>
-            <input type="file" accept="image/png, image/jpeg, image/gif" id="image" onchange="updateImage()"/>
-            <div class="text-art" id="output" contenteditable="true" spellcheck="false"></div>
-        </div>
+    <div class="options">
         <form id="options" onsubmit="return false" onchange="sendOptions()">
             <h1>Options</h1>
             <div>
@@ -44,11 +47,10 @@
                     <option value="blocks">Blocks</option>
                 </select>
             </div>
-
             <div>
                 <label>Scale</label>
                 <input name="scale" value="30" id="scale-output" type="number"/>
-                <input id="scale-range" type="range" min="0" max="100" step="2"/>
+                <input id="scale-range" type="range" min="0" max="60" step="4"/>
             </div>
         </form>
     </div>
