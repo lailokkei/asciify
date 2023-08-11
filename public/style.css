@@ -1,35 +1,107 @@
 * {
-    color: white;
-    font-family: sans-serif;
+    font-size: 1rem;
+    font-family: Arial, Helvetica, sans-serif;
+    /* color: white; */
 }
 
-
-body{
-    background-color: #1b1b1b;
+html {
+    margin: 0;
+    padding: 0;
 }
 
-#generate{
-    background-color: blue;
+body {
+    margin: 0;
 }
 
-.page{
-    margin: 5%;
+/* body, input, select{ */
+/*     background-color: #252525; */
+/* } */
+
+a{
+    text-decoration: none;
+    color: black;
 }
 
-.output{
+a:hover {
+
+    border-bottom: 4px solid;
+}
+
+.title {
+    font-size: 3rem;
+    font-weight: bold;
+    flex: 1;
+}
+
+h1 {
+    font-size: 2rem;
+}
+
+.site-header{
+    padding: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.links{
+    display: flex;
+    justify-content: flex-end;
+    text-align: center;
+    flex: 0;
+}
+
+.link { 
+    font-size: 24pt;
+    font-weight: bold;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.first-margin {
+    margin-left: 0;
+}
+
+.last-margin {
+    margin-right: 0;
+}
+
+input::file-selector-button{
+    background-color: gold;
+    padding: 0.25rem;
+}
+
+#image {
+    margin-bottom: 10px;
+}
+
+button{
+    color: red;
+    text-decoration: none;
+    background-color: #ffe370;
+}
+
+.text-art{
     flex:1;
     /* width:100%; */
     /* height: 500px; */
     background-color: black;
     font-family: monospace;
     white-space: pre;
+    color: white;
+    padding: 20px;
 }
 
-.options{
+#options{
     flex:2;
 }
 
 .flex-container{
     display: flex;
+    flex-wrap: wrap;
 }
 
+/* .flex-container div,form{ */
+/*     border: red solid 2px */
+/* } */
+/**/

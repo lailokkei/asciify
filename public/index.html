@@ -9,42 +9,48 @@
 </head>
 
 <body>
-    <div class="page">
-        <div class="header">
+    <header class="site-header">
+        <div class="title">
             <a href="/" class="title">ASCIIFY</a>
-            <a href="" class="link">CLI</a>
-            <a href="" class="link">Help</a>
-            <a href="https://github.com/toodemhard/asciify" target="_blank" rel="noopener noreferrer"
-                class="link">Source</a>
         </div>
+        <div class="links">
+            <a href="" class="link first-margin">CLI</a>
+            <a href="" class="link">Help</a>
+            <a href="https://github.com/toodemhard/asciify" target="_blank" rel="noopener noreferrer" class="link last-margin">Source</a>
+        </div>
+    </header>
 
-        <div class="flex-container">
+    <h1>Realtime text art generation</h1>
+    <p>Upload an image and dynamically generate different styles.</p>
+
+    <div class="flex-container">
+        <div class="flex-item">
+            <h1>Image</h1>
+            <input type="file" accept="image/png, image/jpeg, image/gif" id="image" onchange="updateImage()"/>
+            <div class="text-art" id="output" contenteditable="true" spellcheck="false"></div>
+        </div>
+        <form id="options" onsubmit="return false" onchange="sendOptions()">
+            <h1>Options</h1>
             <div>
-                <input type="file" , id="image" onchange="updateImage()"/>
-                <div class="output" id="output" contenteditable="true" spellcheck="false"></div>
-            </div>
-            <form id="options" onsubmit="return false" onchange="sendOptions()">
                 <label>Invert</label>
                 <input name="invert" type="checkbox" />
-                <br />
-
+            </div>
+            <div>
                 <label>Characters</label>
                 <select name="charset">
                     <option value="simple">Simple</option>
                     <option value="standard">Standard</option>
                     <option value="detailed">Detailed</option>
                     <option value="blocks">Blocks</option>
-
-
                 </select>
-                <br />
+            </div>
 
+            <div>
                 <label>Scale</label>
                 <input name="scale" value="30" id="scale-output" type="number"/>
                 <input id="scale-range" type="range" min="0" max="100" step="2"/>
-                <br />
-            </form>
-        </div>
+            </div>
+        </form>
     </div>
 
     <script src="script.js"></script>
