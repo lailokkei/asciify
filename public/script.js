@@ -46,3 +46,9 @@ function updateScaleRange() {
 function updateScaleInput() {
     scaleInput.value = scaleRange.value;
 }
+
+function copyText() {
+    let text = document.getElementById("output");
+    navigator.clipboard.writeText(text.innerText);
+    console.log(text.innerText);
+}
