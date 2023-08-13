@@ -1,11 +1,12 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
     box-sizing: border-box;
-    /* font-size: 1.125rem; */
 }
 
 :root {
-    --bg-color: white;
+    --bg-color: black;
+    --fg-color: white;
+    --bg-alt-color: gray;
     --button-bg-color: #74d5ff;
     --highlight-color: var(--button-bg-color);
     --border-color: #575757;
@@ -24,9 +25,16 @@ input{
 }
 
 .title {
-    font-size: 3rem;
+    font-size: 2.375rem;
     font-weight: bold;
-    padding: 0.5rem;
+}
+
+.site-header {
+    padding: 1rem;
+}
+
+.alt-bg{
+    background-color: var(--bg-alt-color);
 }
 
 a{
@@ -43,20 +51,46 @@ h1 {
     margin-bottom: 1rem;
 }
 
-section {
-    padding: 0 1rem;
+.bottom-border{
+    border-bottom: solid 2px var(--border-color);
+}
+
+@media (min-width: 60rem){
+    .split-view{
+        display: flex;
+        /* grid-template-columns: 1fr 1fr; */
+        gap: 2rem;
+    }
+
+}
+
+.bottom-margin{
+    margin-bottom: 1.25rem;
+}
+
+.flex-apart{
+    justify-content: space-between;
+}
+
+.flex-gap {
+    column-gap: 1em;
+    row-gap: 0rem;
+}
+
+.flex {
+   display: flex; 
+   flex-wrap: wrap;
+   align-items: center;
+}
+
+.vertical-margin {
+    margin: 1rem 0;
 }
 
 .link { 
     color: var(--highlight-color);
-    font-size: 24pt;
+    font-size: 2rem;
     font-weight: bold;
-    margin-left: 20px;
-    margin-right: 20px;
-}
-
-.last-margin {
-    margin-right: 0;
 }
 
 select,
@@ -64,6 +98,10 @@ button,
 input,
 input::file-selector-button{
     font-size: 1rem;
+}
+
+input[type=file]{
+    width: 15rem;
 }
 
 input[type=number] {
@@ -80,20 +118,24 @@ input::file-selector-button{
     font-weight: bold;
 }
 
+.flex-grow {
+    flex: 1;
+}
+
 .text-art{
     font-size: 1rem;
     font-family: monospace;
     white-space: pre-wrap;
     border: solid 2px white;
+    margin-top: 1rem;
 }
 
 .center {
     margin: 0 auto;
-    padding: 1em;
-    padding-bottom: 0;
+    padding: 0 1rem;
     max-width: 75rem;
 }
 
 .line-option {
-   margin-bottom: 0.5rem; 
+   margin-bottom: 1rem; 
 }
