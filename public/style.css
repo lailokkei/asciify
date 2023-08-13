@@ -9,7 +9,7 @@
     --bg-alt-color: gray;
     --button-bg-color: #74d5ff;
     --highlight-color: var(--button-bg-color);
-    --border-color: #575757;
+    --border-color: white;
 }
 
 body,
@@ -25,12 +25,13 @@ input{
 }
 
 .title {
-    font-size: 2.375rem;
+    font-size: 2.5rem;
     font-weight: bold;
 }
 
 .site-header {
     padding: 1rem;
+    column-gap: 4rem;
 }
 
 .alt-bg{
@@ -47,18 +48,19 @@ a:hover {
 }
 
 h1 {
-    font-size: 2rem;
+    /* font-size: 1.5rem; */
     margin-bottom: 1rem;
 }
 
 .bottom-border{
+    padding-bottom: 0.5rem;
     border-bottom: solid 2px var(--border-color);
 }
 
 @media (min-width: 60rem){
     .split-view{
-        display: flex;
-        /* grid-template-columns: 1fr 1fr; */
+        display: grid;
+        grid-template-columns: 2fr 1fr;
         gap: 2rem;
     }
 
@@ -89,7 +91,7 @@ h1 {
 
 .link { 
     color: var(--highlight-color);
-    font-size: 2rem;
+    font-size: 1.75rem;
     font-weight: bold;
 }
 
@@ -106,6 +108,10 @@ input[type=file]{
 
 input[type=number] {
     border: solid 1px white;
+}
+
+input[type=number] {
+    width: 6rem;
 }
 
 button,
@@ -127,15 +133,20 @@ input::file-selector-button{
     font-family: monospace;
     white-space: pre-wrap;
     border: solid 2px white;
-    margin-top: 1rem;
+    padding: 1rem;
 }
 
 .center {
     margin: 0 auto;
-    padding: 0 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
     max-width: 75rem;
 }
 
+.padding-top {
+    padding-top: 0.5rem;
+}
+
 .line-option {
-   margin-bottom: 1rem; 
+   margin-bottom: 0.5rem; 
 }

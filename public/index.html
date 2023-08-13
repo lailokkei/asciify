@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <header class="site-header flex flex-apart">
+    <header class="site-header flex flex-apart center">
         <div class="title">
             <a href="/" class="title">ASCIIFY</a>
         </div>
@@ -22,7 +22,7 @@
 
     <div class="split-view center">
         <div class="flex-grow bottom-margin">
-            <h1>Display</h1>
+            <h1 class="bottom-border">Display</h1>
             <div class="line-option">
                 <label>Font</label>
                 <select name="font" id="font-selector" onchange="updateFont()">
@@ -30,7 +30,7 @@
                     <option value="sans-serif">proportional</option>
                 </select>
             </div>
-            <div class="line-option flex flex-apart">
+            <div class="line-option flex flex-apart padding-top">
                 <input type="file" accept="image/png, image/jpeg, image/gif" id="image" onchange="updateImage()"/>
                 <button onclick="copyText()">Copy</button>
             </div>
@@ -38,7 +38,7 @@
         </div>
 
         <form id="options" onsubmit="return false" onchange="sendOptions()">
-            <h1>Options</h1>
+            <h1 class="bottom-border">Options</h1>
             <div class="line-option">
                 <label>Invert</label>
                 <input name="invert" type="checkbox" />
