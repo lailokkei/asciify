@@ -61,7 +61,15 @@ func sampleTopLeft(img image.Image, tile tile) color.Gray {
 func ImageToText(img image.Image, options Options) string {
 	charSet := getCharSet(options.CharSetName, options.Invert)
 	textImage := ""
+
+	if options.ScaleWidth <= 0 {
+		return textImage
+	}
+
 	tileWidth := img.Bounds().Max.X / options.ScaleWidth
+	if tileWidth <= 0 {
+		tileWidth = 1
+	}
 	tileHeight := tileWidth * 2
 
 	for y := img.Bounds().Min.Y; y+tileHeight <= img.Bounds().Max.Y; y += tileHeight {
