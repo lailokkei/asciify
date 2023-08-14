@@ -1,12 +1,16 @@
 let ws = new WebSocket("ws://" + window.location.host + "/connect");
 
 ws.onmessage = function(e) {
-    document.getElementById("output").innerHTML = escapeHTML(e.data);
+    updateOutputBox(e.data);
 };
 
 ws.onopen = function() {
     sendOptions();
 };
+
+function updateOutputBox(text) {
+    document.getElementById("output").innerHTML = escapeHTML(text);
+}
 
 function escapeHTML(unsafe) {
     return unsafe.replaceAll('&', '&amp;').replaceAll('<', '&lt;').replaceAll('>', '&gt;').replaceAll('"', '&quot;').replaceAll("'", '&#039;');
@@ -15,6 +19,8 @@ function escapeHTML(unsafe) {
 function updateImage() {
     let image = document.getElementById("image").files[0];
     ws.send(image);
+
+    updateOutputBox("Uploading image...")
 
     sendOptions()
 }
