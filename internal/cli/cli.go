@@ -1,32 +1,37 @@
 package cli
 
 import (
-	"flag"
 	"fmt"
 	"log"
-	"os"
 
-	asciify "github.com/toodemhard/asciify/internal/asciify-lib"
+	"github.com/jessevdk/go-flags"
+	"github.com/toodemhard/asciify/internal/asciify-lib"
 )
 
 func Start() {
-	var hFlag = flag.Bool("h", false, "")
-	var iFlag = flag.Bool("i", false, "")
-	var fFlag = flag.String("f", "", "")
-	var sFlag = flag.Int("s", 20, "")
-	var cFlag = flag.String("c", "standard", "")
-	flag.Parse()
-
-	if *hFlag {
-		fmt.Println("idk...")
-		os.Exit(0)
+	var cmdOptions struct {
+		File    string `short:"f" long:"file" description:"Image file path to source"`
+		Invert  bool   `short:"i" long:"invert" description:"Invert the values of the image"`
+		CharSet string `short:"c" long:"charset" description:"Set of characters to use in output" default:"simple"`
+		Scale   int    `short:"s" long:"scale" description:"Width of output in number of characters" default:"20"`
 	}
 
-	img, err := asciify.DecodeImageFile(*fFlag)
+	_, err := flags.Parse(&cmdOptions)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	options := asciify.Options{CharSetName: *cFlag, Invert: *iFlag, ScaleWidth: *sFlag}
+	img, err := asciify.DecodeImageFile(cmdOptions.File)
+	if err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println(cmdOptions)
+
+	options := asciify.Options{
+		CharSetName: cmdOptions.CharSet,
+		Invert:      cmdOptions.Invert,
+		ScaleWidth:  cmdOptions.Scale,
+	}
+
 	fmt.Print(asciify.ImageToText(img, options))
 }
