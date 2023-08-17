@@ -1,6 +1,7 @@
 package asciify
 
 import (
+	"fmt"
 	"image"
 	"image/color"
 	"sort"
@@ -20,10 +21,9 @@ type tile struct {
 }
 
 func NewOptions() Options {
-	return Options{"standard", false, 20}
+	return Options{"standard", false, 20, ""}
 }
 
-func sampleMean(img image.Image, tile tile) color.Gray {
 	total := 0
 	for y := tile.y; y < tile.y+tile.height; y++ {
 		for x := tile.x; x < tile.x+tile.width; x++ {
@@ -33,7 +33,7 @@ func sampleMean(img image.Image, tile tile) color.Gray {
 	return color.Gray{uint8(total / (tile.width * tile.height))}
 }
 
-func sampleMedian(img image.Image, tile tile) color.Gray {
+func sampleMedian(img image.Image, tile tile) color.Color {
 	values := []uint8{}
 	for y := tile.y; y < tile.y+tile.height; y++ {
 		for x := tile.x; x < tile.x+tile.width; x++ {
@@ -50,11 +50,7 @@ func sampleMedian(img image.Image, tile tile) color.Gray {
 	return color.Gray{values[len(values)/2]}
 }
 
-func sampleMid(img image.Image, tile tile) color.Gray {
-	return colorToGray(img.At(tile.x+tile.width/2, tile.y+tile.height/2))
-}
-
-func sampleTopLeft(img image.Image, tile tile) color.Gray {
+func sampleTopLeft(img image.Image, tile tile) color.Color {
 	return colorToGray(img.At(tile.x, tile.y))
 }
 
@@ -75,7 +71,7 @@ func ImageToText(img image.Image, options Options) string {
 	for y := img.Bounds().Min.Y; y+tileHeight <= img.Bounds().Max.Y; y += tileHeight {
 		for x := img.Bounds().Min.X; x+tileWidth <= img.Bounds().Max.X; x += tileWidth {
 			// c := colorToGray(img.At(x, y))
-			c := sampleMid(img, tile{x, y, tileWidth, tileHeight})
+			c := colorToGray(sampleMid(img, tile{x, y, tileWidth, tileHeight}))
 			textImage += grayToChar(c, charSet)
 		}
 		textImage += "\n"
