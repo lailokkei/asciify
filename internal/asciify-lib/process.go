@@ -76,6 +76,51 @@ func ImageToText(img image.Image, options Options) string {
 		}
 		textImage += "\n"
 	}
+func parseBraille(img image.Image, charTile tile) string {
+	//https://en.wikipedia.org/wiki/Braille_Patterns
+	//all wierd numbers have just been converted from hex to dec
+	brailleOffset := 10240
+	positionValues := [8]int{1, 8, 2, 16, 4, 32, 64, 128}
+	brailleWidth := 2
+	brailleHeight := 4
+	dotWidth := charTile.width / brailleWidth
+	dotHeight := charTile.height / brailleHeight
 
+	var state byte
+
+	for y := 0; y < brailleHeight; y++ {
+		for x := 0; x < brailleWidth; x++ {
+			dotTile := tile{charTile.x + x*dotWidth, charTile.y + y*dotHeight, dotHeight, dotHeight}
+			if colorToGray(sampleMid(img, dotTile)).Y >= 127 {
+				state += byte(positionValues[y*brailleWidth+x])
+			}
+		}
+	}
+
+	return fmt.Sprintf("%c", brailleOffset+int(state))
+	// return string(brailleOffset + int(state))
+}
+
+func ImageToBraille(img image.Image, options Options) string {
+	textImage := ""
+
+	if options.ScaleWidth <= 0 {
+		return textImage
+	}
+
+	tileWidth := img.Bounds().Max.X / options.ScaleWidth
+
+	if tileWidth <= 0 {
+		tileWidth = 1
+	}
+
+	tileHeight := tileWidth * 2
+
+	for y := img.Bounds().Min.Y; y+tileHeight <= img.Bounds().Max.Y; y += tileHeight {
+		for x := img.Bounds().Min.X; x+tileWidth <= img.Bounds().Max.X; x += tileWidth {
+			textImage += parseBraille(img, tile{x, y, tileWidth, tileHeight})
+		}
+		textImage += "\n"
+	}
 	return textImage
 }
