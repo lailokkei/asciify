@@ -60,7 +60,7 @@ func (b BrailleSet) tileToChar(img image.Image, charTile tile) string {
 
 	for y := 0; y < brailleHeight; y++ {
 		for x := 0; x < brailleWidth; x++ {
-			dotTile := tile{charTile.x + x*dotWidth, charTile.y + y*dotHeight, dotHeight, dotHeight}
+			dotTile := tile{charTile.x + x*dotWidth, charTile.y + y*dotHeight, dotWidth, dotHeight}
 			if colorToGray(sampleMid(img, dotTile)).Y >= 127 {
 				state += byte(positionValues[y*brailleWidth+x])
 			}
