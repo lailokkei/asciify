@@ -14,7 +14,7 @@ func Start() {
 		Invert       bool   `short:"i" long:"invert" description:"Invert the values of the image"`
 		CharSet      string `short:"c" long:"charset" description:"Set of characters to use in output" default:"simple"`
 		Scale        int    `short:"s" long:"scale" description:"Width of output in number of characters" default:"20"`
-		SampleMethod string `short:"m" default:"mid"`
+		SampleMethod string `short:"m" long:"sampleMethod" description:"Method of converting grid of pixels to character" default:"mid"`
 	}
 
 	_, err := flags.Parse(&cmdOptions)
