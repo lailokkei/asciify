@@ -6,14 +6,6 @@ import (
 	"image/color"
 )
 
-func reverseSet(set []rune) []rune {
-	reversed := []rune{}
-	for i := len(set) - 1; i >= 0; i-- {
-		reversed = append(reversed, set[i])
-	}
-	return reversed
-}
-
 type charSet interface {
 	tileToChar(image.Image, tile, bool) string
 }
