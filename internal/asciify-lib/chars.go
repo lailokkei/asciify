@@ -7,7 +7,7 @@ import (
 )
 
 type charSet interface {
-	tileToChar(image.Image, tile, bool) string
+	tileToChar(image.Image, tile, bool, sampleMethod) string
 }
 
 func getCharSet(charSetName string) charSet {
@@ -30,8 +30,8 @@ type gradientSet struct {
 	charGradient []rune
 }
 
-func (g gradientSet) tileToChar(img image.Image, tile tile, invert bool) string {
-	value := colorToGray(sampleMid(img, tile))
+func (g gradientSet) tileToChar(img image.Image, tile tile, invert bool, sample sampleMethod) string {
+	value := colorToGray(sample(img, tile))
 	if invert {
 		value = invertValue(value)
 	}
@@ -49,7 +49,7 @@ func binaryThreshold(value color.Gray) bool {
 	return false
 }
 
-func (b brailleSet) tileToChar(img image.Image, charTile tile, invert bool) string {
+func (b brailleSet) tileToChar(img image.Image, charTile tile, invert bool, sample sampleMethod) string {
 	//https://en.wikipedia.org/wiki/Braille_Patterns
 	//hex values coverted to decimal
 	brailleOffset := 10240
@@ -64,7 +64,7 @@ func (b brailleSet) tileToChar(img image.Image, charTile tile, invert bool) stri
 	for y := 0; y < brailleHeight; y++ {
 		for x := 0; x < brailleWidth; x++ {
 			dotTile := tile{charTile.x + x*dotWidth, charTile.y + y*dotHeight, dotWidth, dotHeight}
-			color := sampleMid(img, dotTile)
+			color := sample(img, dotTile)
 			value := colorToGray(color)
 			if invert == true {
 				value = invertValue(value)

@@ -5,9 +5,10 @@ import (
 )
 
 type Options struct {
-	CharSetName string
-	Invert      bool
-	ScaleWidth  int
+	CharSetName  string
+	Invert       bool
+	ScaleWidth   int
+	SampleMethod string
 }
 
 type tile struct {
@@ -22,6 +23,7 @@ func NewOptions() Options {
 		"standard",
 		false,
 		20,
+		"mid",
 	}
 }
 
@@ -41,10 +43,12 @@ func ImageToText(img image.Image, options Options) string {
 
 	tileHeight := tileWidth * 2
 
+	sampleMethod := getSampleFunc(options.SampleMethod)
+
 	for y := img.Bounds().Min.Y; y+tileHeight <= img.Bounds().Max.Y; y += tileHeight {
 		for x := img.Bounds().Min.X; x+tileWidth <= img.Bounds().Max.X; x += tileWidth {
 			tile := tile{x, y, tileWidth, tileHeight}
-			textImage += charSet.tileToChar(img, tile, options.Invert)
+			textImage += charSet.tileToChar(img, tile, options.Invert, sampleMethod)
 		}
 		textImage += "\n"
 	}
