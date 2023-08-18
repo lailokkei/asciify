@@ -19,7 +19,7 @@ func Start() {
 
 	_, err := flags.Parse(&cmdOptions)
 	if err != nil {
-		log.Fatal(err)
+		return
 	}
 
 	img, err := asciify.DecodeImageFile(cmdOptions.File)
