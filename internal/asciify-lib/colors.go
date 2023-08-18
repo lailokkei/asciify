@@ -1,8 +1,10 @@
 package asciify
 
 import (
+	"image"
 	"image/color"
 	"math"
+	"sort"
 )
 
 func squash(value float64) float64 {
@@ -10,12 +12,7 @@ func squash(value float64) float64 {
 }
 
 func colorToGray(pixel color.Color) color.Gray {
-	// https://stackoverflow.com/questions/42516203/converting-rgba-image-to-grayscale-golang
-	// r, g, b, _ := pixel.RGBA()
-	// lum := 0.299*float64(r) + 0.587*float64(g) + 0.114*float64(b)
-
 	return color.GrayModel.Convert(pixel).(color.Gray)
-	// return color.Gray{uint8(lum / 256)}
 }
 
 func grayToChar(c color.Gray, characterSet []rune) string {
@@ -25,4 +22,39 @@ func grayToChar(c color.Gray, characterSet []rune) string {
 		level--
 	}
 	return string(characterSet[int(level)])
+}
+
+func sampleMid(img image.Image, tile tile) color.Color {
+	return img.At(tile.x+tile.width/2, tile.y+tile.height/2)
+}
+
+func sampleMean(img image.Image, tile tile) color.Color {
+	total := 0
+	for y := tile.y; y < tile.y+tile.height; y++ {
+		for x := tile.x; x < tile.x+tile.width; x++ {
+			total += int(colorToGray(img.At(x, y)).Y)
+		}
+	}
+	return color.Gray{uint8(total / (tile.width * tile.height))}
+}
+
+func sampleMedian(img image.Image, tile tile) color.Color {
+	values := []uint8{}
+	for y := tile.y; y < tile.y+tile.height; y++ {
+		for x := tile.x; x < tile.x+tile.width; x++ {
+			values = append(values, uint8(colorToGray(img.At(x, y)).Y))
+		}
+	}
+	less := func(i int, j int) bool {
+		if i < j {
+			return true
+		}
+		return false
+	}
+	sort.Slice(values, less)
+	return color.Gray{values[len(values)/2]}
+}
+
+func sampleTopLeft(img image.Image, tile tile) color.Color {
+	return colorToGray(img.At(tile.x, tile.y))
 }
