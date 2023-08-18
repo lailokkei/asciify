@@ -1,7 +1,18 @@
-## CLI
+# CLI
 ![image](https://github.com/toodemhard/asciify/assets/100080774/149cc808-d321-45e6-830c-31dd20b5f8b6)
 
-### Options
+## Installation
+Manual
+```sh
+git clone https://github.com/toodemhard/asciify.git
+cd asciify
+scripts/build-cli
+
+# run
+bin/asciify -h
+```
+
+## Usage
 Show help page
 ```sh
 asciify -h
@@ -21,8 +32,8 @@ Help Options:
   -h, --help          Show this help message
 ```
 
-## Web
+# Web
 Start server
-```
-go run ./cmd/server/main.go
+```sh
+go run cmd/server/main.go
 ```
