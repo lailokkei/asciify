@@ -44,7 +44,7 @@ func ImageToText(img image.Image, options Options) string {
 	for y := img.Bounds().Min.Y; y+tileHeight <= img.Bounds().Max.Y; y += tileHeight {
 		for x := img.Bounds().Min.X; x+tileWidth <= img.Bounds().Max.X; x += tileWidth {
 			tile := tile{x, y, tileWidth, tileHeight}
-			textImage += charSet.tileToChar(img, tile)
+			textImage += charSet.tileToChar(img, tile, options.Invert)
 		}
 		textImage += "\n"
 	}

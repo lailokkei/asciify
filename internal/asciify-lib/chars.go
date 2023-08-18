@@ -3,6 +3,7 @@ package asciify
 import (
 	"fmt"
 	"image"
+	"image/color"
 )
 
 func reverseSet(set []rune) []rune {
@@ -13,13 +14,13 @@ func reverseSet(set []rune) []rune {
 	return reversed
 }
 
-type CharSet interface {
-	tileToChar(image.Image, tile) string
+type charSet interface {
+	tileToChar(image.Image, tile, bool) string
 }
 
-func getCharSet(charSetName string) CharSet {
+func getCharSet(charSetName string) charSet {
 	if charSetName == "braille" {
-		return BrailleSet{}
+		return brailleSet{}
 	}
 
 	sets := map[string][]rune{
@@ -30,25 +31,35 @@ func getCharSet(charSetName string) CharSet {
 		"binary":   []rune(" #"),
 	}
 
-	return GradientSet{sets[charSetName]}
+	return gradientSet{sets[charSetName]}
 }
 
-type GradientSet struct {
+type gradientSet struct {
 	charGradient []rune
 }
 
-func (g GradientSet) tileToChar(img image.Image, tile tile) string {
-
-	c := colorToGray(sampleMid(img, tile))
-	return grayToChar(c, g.charGradient)
+func (g gradientSet) tileToChar(img image.Image, tile tile, invert bool) string {
+	value := colorToGray(sampleMid(img, tile))
+	if invert {
+		value = invertValue(value)
+	}
+	return grayToChar(value, g.charGradient)
 }
 
-type BrailleSet struct {
+type brailleSet struct {
 }
 
-func (b BrailleSet) tileToChar(img image.Image, charTile tile) string {
+func binaryThreshold(value color.Gray) bool {
+	const halfValue uint8 = 255 / 2
+	if value.Y > halfValue {
+		return true
+	}
+	return false
+}
+
+func (b brailleSet) tileToChar(img image.Image, charTile tile, invert bool) string {
 	//https://en.wikipedia.org/wiki/Braille_Patterns
-	//all wierd numbers have just been converted from hex to dec
+	//hex values coverted to decimal
 	brailleOffset := 10240
 	positionValues := [8]int{1, 8, 2, 16, 4, 32, 64, 128}
 	brailleWidth := 2
@@ -61,7 +72,12 @@ func (b BrailleSet) tileToChar(img image.Image, charTile tile) string {
 	for y := 0; y < brailleHeight; y++ {
 		for x := 0; x < brailleWidth; x++ {
 			dotTile := tile{charTile.x + x*dotWidth, charTile.y + y*dotHeight, dotWidth, dotHeight}
-			if colorToGray(sampleMid(img, dotTile)).Y >= 127 {
+			color := sampleMid(img, dotTile)
+			value := colorToGray(color)
+			if invert == true {
+				value = invertValue(value)
+			}
+			if binaryThreshold(value) {
 				state += byte(positionValues[y*brailleWidth+x])
 			}
 		}

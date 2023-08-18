@@ -11,6 +11,11 @@ func squash(value float64) float64 {
 	return math.Pow(value, 3) / 255 / 255
 }
 
+func invertValue(pixel color.Gray) color.Gray {
+	const maxValue uint8 = 255
+	return color.Gray{maxValue - pixel.Y}
+}
+
 func colorToGray(pixel color.Color) color.Gray {
 	return color.GrayModel.Convert(pixel).(color.Gray)
 }
