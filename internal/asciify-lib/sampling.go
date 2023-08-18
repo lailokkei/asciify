@@ -32,13 +32,6 @@ func sampleMean(img image.Image, tile tile) color.Color {
 	return color.Gray{uint8(total / (tile.width * tile.height))}
 }
 
-func min(x uint8, y uint8) uint8 {
-	if x < y {
-		return x
-	}
-	return y
-}
-
 func sampleMin(img image.Image, tile tile) color.Color {
 	var minColor = color.Gray{255}
 	for y := tile.y; y < tile.y+tile.height; y++ {
@@ -47,13 +40,6 @@ func sampleMin(img image.Image, tile tile) color.Color {
 		}
 	}
 	return minColor
-}
-
-func max(x uint8, y uint8) uint8 {
-	if x > y {
-		return x
-	}
-	return y
 }
 
 func sampleMax(img image.Image, tile tile) color.Color {
