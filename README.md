@@ -1,5 +1,5 @@
 # CLI
-![image](https://github.com/toodemhard/asciify/assets/100080774/149cc808-d321-45e6-830c-31dd20b5f8b6)
+![image](https://github.com/toodemhard/asciify/assets/100080774/5e5ae4da-b17d-468b-b326-827f8872d6e7)
 
 ## Install from source
 Clone and cd into repository.
