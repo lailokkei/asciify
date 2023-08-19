@@ -1,15 +1,26 @@
 # CLI
 ![image](https://github.com/toodemhard/asciify/assets/100080774/149cc808-d321-45e6-830c-31dd20b5f8b6)
 
-## Installation
-Manual
+## Install from source
+Clone and cd into repository.
 ```sh
 git clone https://github.com/toodemhard/asciify.git
 cd asciify
-scripts/build-cli
+```
+Build and install to `/usr/local/bin/asciify`.
+- Requires go version 1.21 .
+```sh
+./install
+```
 
-# run
-bin/asciify -h
+## Uninstall
+```sh
+rm /usr/local/bin/asciify
+```
+or use the uninstall script
+```sh
+cd asciify
+./uninstall
 ```
 
 ## Usage
