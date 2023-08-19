@@ -1,0 +1,4 @@
+# vim: filetype=sh
+#!/usr/bin/bash
+
+sudo rm -fv /usr/local/bin/asciify

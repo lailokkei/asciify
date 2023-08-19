@@ -1,0 +1,13 @@
+# vim: filetype=sh
+#!/usr/bin/bash
+
+echo "Building..."
+
+go build -C ./cmd/cli -o ../../bin/asciify
+
+sudo rm -fv /usr/local/bin/asciify
+
+echo "Installing..."
+
+chmod +x bin/asciify
+sudo mv -v bin/asciify /usr/local/bin/asciify
