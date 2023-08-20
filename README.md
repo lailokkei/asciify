@@ -8,7 +8,7 @@ git clone https://github.com/toodemhard/asciify.git
 cd asciify
 ```
 Build and install to `/usr/local/bin/asciify`.
-- Requires go version 1.21 .
+- Requires go version 1.21
 ```sh
 ./install
 ```
