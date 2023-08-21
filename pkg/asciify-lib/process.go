@@ -27,12 +27,16 @@ func NewOptions() Options {
 	}
 }
 
-func ImageToText(img image.Image, options Options) string {
-	charSet := getCharSet(options.CharSetName)
-	textImage := ""
+func ImageToText(img image.Image, options Options) (string, error) {
+	var textImage string
+	charSet, err := getCharSet(options.CharSetName)
+
+	if err != nil {
+		return textImage, err
+	}
 
 	if options.ScaleWidth <= 0 {
-		return textImage
+		return textImage, nil
 	}
 
 	tileWidth := img.Bounds().Max.X / options.ScaleWidth
@@ -43,7 +47,11 @@ func ImageToText(img image.Image, options Options) string {
 
 	tileHeight := tileWidth * 2
 
-	sampleMethod := getSampleFunc(options.SampleMethod)
+	sampleMethod, err := getSampleFunc(options.SampleMethod)
+
+	if err != nil {
+		return textImage, err
+	}
 
 	for y := img.Bounds().Min.Y; y+tileHeight <= img.Bounds().Max.Y; y += tileHeight {
 		for x := img.Bounds().Min.X; x+tileWidth <= img.Bounds().Max.X; x += tileWidth {
@@ -53,5 +61,5 @@ func ImageToText(img image.Image, options Options) string {
 		textImage += "\n"
 	}
 
-	return textImage
+	return textImage, nil
 }

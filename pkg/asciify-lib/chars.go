@@ -1,6 +1,7 @@
 package asciify
 
 import (
+	"errors"
 	"fmt"
 	"image"
 	"image/color"
@@ -10,9 +11,9 @@ type charSet interface {
 	tileToChar(image.Image, tile, bool, sampleMethod) string
 }
 
-func getCharSet(charSetName string) charSet {
+func getCharSet(charSetName string) (charSet, error) {
 	if charSetName == "braille" {
-		return brailleSet{}
+		return brailleSet{}, nil
 	}
 
 	sets := map[string][]rune{
@@ -23,7 +24,14 @@ func getCharSet(charSetName string) charSet {
 		"binary":   []rune(" #"),
 	}
 
-	return gradientSet{sets[charSetName]}
+	val, ok := sets[charSetName]
+
+	if !ok {
+		return nil, errors.New("Invalid char set name")
+	}
+
+	return gradientSet{val}, nil
+
 }
 
 type gradientSet struct {

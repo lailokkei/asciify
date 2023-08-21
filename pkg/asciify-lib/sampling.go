@@ -1,6 +1,7 @@
 package asciify
 
 import (
+	"errors"
 	"image"
 	"image/color"
 	"sort"
@@ -8,14 +9,18 @@ import (
 
 type sampleMethod func(image.Image, tile) color.Color
 
-func getSampleFunc(name string) sampleMethod {
+func getSampleFunc(name string) (sampleMethod, error) {
 	funcs := map[string]sampleMethod{
 		"mid":  sampleMid,
 		"mean": sampleMean,
 		"min":  sampleMin,
 		"max":  sampleMax,
 	}
-	return funcs[name]
+	val, ok := funcs[name]
+	if !ok {
+		return val, errors.New("Invalid sample method")
+	}
+	return val, nil
 }
 
 func sampleMid(img image.Image, tile tile) color.Color {
