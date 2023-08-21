@@ -9,13 +9,14 @@ import (
 )
 
 func DecodeImageFile(filepath string) (image.Image, error) {
-	reader, err := os.Open(filepath)
+	f, err := os.Open(filepath)
+	defer f.Close()
 
 	if err != nil {
 		return nil, err
 	}
 
-	img, _, err := image.Decode(reader)
+	img, _, err := image.Decode(f)
 	if err != nil {
 		return nil, err
 	}
