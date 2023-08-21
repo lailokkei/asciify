@@ -1,9 +1,7 @@
 package main
 
-import (
-	asciify "github.com/toodemhard/asciify/internal/cli"
-)
+import "github.com/toodemhard/asciify/pkg/cli"
 
 func main() {
-	asciify.Start()
+	cli.Start()
 }
