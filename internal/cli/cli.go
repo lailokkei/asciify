@@ -2,11 +2,16 @@ package cli
 
 import (
 	"fmt"
-	"log"
+	"os"
 
 	"github.com/jessevdk/go-flags"
-	"github.com/toodemhard/asciify/internal/asciify-lib"
+	"github.com/toodemhard/asciify/pkg/asciify-lib"
 )
+
+func fatal(err error) {
+	fmt.Println(err)
+	os.Exit(1)
+}
 
 func Start() {
 	var cmdOptions struct {
@@ -19,12 +24,12 @@ func Start() {
 
 	_, err := flags.Parse(&cmdOptions)
 	if err != nil {
-		return
+		fatal(err)
 	}
 
 	img, err := asciify.DecodeImageFile(cmdOptions.File)
 	if err != nil {
-		log.Fatal(err)
+		fatal(err)
 	}
 
 	options := asciify.Options{
@@ -34,5 +39,10 @@ func Start() {
 		SampleMethod: cmdOptions.SampleMethod,
 	}
 
-	fmt.Print(asciify.ImageToText(img, options))
+	text, err := asciify.ImageToText(img, options)
+	if err != nil {
+		fatal(err)
+	}
+
+	fmt.Println(text)
 }
