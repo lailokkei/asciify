@@ -44,7 +44,7 @@ Help Options:
 ```
 
 # Library
-##Install
+## Install
 ```sh
 go get -u github.com/toodemhard/asciify
 ```
