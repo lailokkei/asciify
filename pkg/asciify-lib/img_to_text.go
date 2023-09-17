@@ -18,6 +18,12 @@ type tile struct {
 	height int
 }
 
+type tileOptions struct {
+	invert   bool
+	sample   sampleMethod
+	contrast contrast
+}
+
 func NewOptions() Options {
 	return Options{
 		"standard",
@@ -49,6 +55,18 @@ func ImageToText(img image.Image, options Options) (string, error) {
 
 	sampleMethod, err := getSampleFunc(options.SampleMethod)
 
+	var contrast contrast
+	contrast = none{}
+	if options.CharSetName == "standard" || options.CharSetName == "detailed" {
+		contrast = stretch{}
+	}
+
+	tileOptions := tileOptions{
+		options.Invert,
+		sampleMethod,
+		contrast,
+	}
+
 	if err != nil {
 		return textImage, err
 	}
@@ -56,7 +74,7 @@ func ImageToText(img image.Image, options Options) (string, error) {
 	for y := img.Bounds().Min.Y; y+tileHeight <= img.Bounds().Max.Y; y += tileHeight {
 		for x := img.Bounds().Min.X; x+tileWidth <= img.Bounds().Max.X; x += tileWidth {
 			tile := tile{x, y, tileWidth, tileHeight}
-			textImage += charSet.tileToChar(img, tile, options.Invert, sampleMethod)
+			textImage += charSet.tileToChar(img, tile, tileOptions)
 		}
 		textImage += "\n"
 	}

@@ -8,7 +8,7 @@ import (
 )
 
 type charSet interface {
-	tileToChar(image.Image, tile, bool, sampleMethod) string
+	tileToChar(image.Image, tile, tileOptions) string
 }
 
 func getCharSet(charSetName string) (charSet, error) {
@@ -30,7 +30,7 @@ func getCharSet(charSetName string) (charSet, error) {
 		return nil, errors.New("Invalid char set name")
 	}
 
-	return gradientSet{val}, nil
+	return gradientSet{charGradient: val}, nil
 
 }
 
@@ -38,9 +38,10 @@ type gradientSet struct {
 	charGradient []rune
 }
 
-func (g gradientSet) tileToChar(img image.Image, tile tile, invert bool, sample sampleMethod) string {
-	value := colorToGray(sample(img, tile))
-	if invert {
+func (g gradientSet) tileToChar(img image.Image, tile tile, options tileOptions) string {
+	value := colorToGray(options.sample(img, tile))
+	value = color.Gray{uint8(options.contrast.calculate(float64(value.Y)))}
+	if options.invert {
 		value = invertValue(value)
 	}
 	return grayToChar(value, g.charGradient)
@@ -57,7 +58,7 @@ func binaryThreshold(value color.Gray) bool {
 	return false
 }
 
-func (b brailleSet) tileToChar(img image.Image, charTile tile, invert bool, sample sampleMethod) string {
+func (b brailleSet) tileToChar(img image.Image, charTile tile, options tileOptions) string {
 	//https://en.wikipedia.org/wiki/Braille_Patterns
 	//hex values coverted to decimal
 	brailleOffset := 10240
@@ -72,9 +73,9 @@ func (b brailleSet) tileToChar(img image.Image, charTile tile, invert bool, samp
 	for y := 0; y < brailleHeight; y++ {
 		for x := 0; x < brailleWidth; x++ {
 			dotTile := tile{charTile.x + x*dotWidth, charTile.y + y*dotHeight, dotWidth, dotHeight}
-			color := sample(img, dotTile)
-			value := colorToGray(color)
-			if invert == true {
+			value := colorToGray(options.sample(img, dotTile))
+			value = color.Gray{uint8(options.contrast.calculate(float64(value.Y)))}
+			if options.invert == true {
 				value = invertValue(value)
 			}
 			if binaryThreshold(value) {

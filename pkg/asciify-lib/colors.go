@@ -5,8 +5,22 @@ import (
 	"math"
 )
 
-func squash(value float64) float64 {
-	return math.Pow(value, 3) / 255 / 255
+type contrast interface {
+	calculate(value float64) float64
+}
+
+type none struct {
+}
+
+func (self none) calculate(value float64) float64 {
+	return value
+}
+
+type stretch struct {
+}
+
+func (self stretch) calculate(value float64) float64 {
+	return math.Pow(value, 2) / 255
 }
 
 func invertValue(pixel color.Gray) color.Gray {
