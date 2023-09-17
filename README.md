@@ -1,7 +1,7 @@
 # CLI
 ![image](https://github.com/toodemhard/asciify/assets/100080774/5e5ae4da-b17d-468b-b326-827f8872d6e7)
 
-## Install from source
+## Install
 Clone and cd into repository.
 ```sh
 git clone https://github.com/toodemhard/asciify.git
@@ -43,8 +43,8 @@ Help Options:
   -h, --help          Show this help message
 ```
 
-# Web
-Start server
+# Library
+## Install
 ```sh
-go run cmd/server/main.go
+go get -u github.com/toodemhard/asciify
 ```
