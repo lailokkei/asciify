@@ -24,7 +24,7 @@ func Start() {
 
 	_, err := flags.Parse(&cmdOptions)
 	if err != nil {
-		fatal(err)
+		os.Exit(0)
 	}
 
 	img, err := asciify.DecodeImageFile(cmdOptions.File)
