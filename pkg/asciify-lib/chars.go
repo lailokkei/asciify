@@ -21,7 +21,6 @@ func getCharSet(charSetName string) (charSet, error) {
 		"detailed": []rune(" `.-':_,^=;><+!rc*/z?sLTv)J7(|Fi{C}fI31tlu[neoZ5Yxjya]2ESwqkP6h9d4VpOGbUAKXHm8RD#$Bg0MNWQ%&@"),
 		"simple":   []rune(" .:-=+*#%@"),
 		"blocks":   []rune(" ░▒▓█"),
-		"binary":   []rune(" #"),
 	}
 
 	val, ok := sets[charSetName]
